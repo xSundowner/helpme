@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/Cadastro.css') }}">
+    <script src="{{ url_for('static', filename='Cadastro.js') }}"></script>
+</head>
+<body>
+    <div class="bloco">
+        <p style="font-size:30px;">NOVO CADASTRO</p>
+        <form method="post" action="{{ url_for('process_cadastro') }}">
+            <input class="campobig" type="text" name="first_name" placeholder="Digite seu primeiro nome" minlength="2" required/><br/>
+            <input class="campobig" type="text" name="last_name" placeholder="Digite seu sobrenome" minlength="2" required/><br/>
+            <input class="campobig" type="email" name="email" placeholder="Digite seu e-mail" required/><br/>
+            <input class="campo" type="text" name="cep" id="cep" value="" size="9" maxlength="9" onblur="pesquisacep(this.value);" placeholder="CEP" required/>
+            <input class="campo" type="text" name="cidade" id="cidade" style="width: 400px;" placeholder="Cidade" disabled required/>
+            <input class="campo" type="text" name="bairro" id="bairro" size="53" placeholder="Bairro" disabled required/>
+            <input class="campo" type="text" name="uf" id="uf" size="2" placeholder="UF" disabled required/><br/>
+            <input class="campobig" type="password" name="password" placeholder="Crie uma senha" minlength="5" required/><br/>
+            <input class="campobig" type="password" name="confirm_password" placeholder="Repita a senha criada" minlength="5" required/><br/>
+            <p>Ao criar sua conta você concorda que possui mais de 18 anos e que está ciente <br>que deverá seguir as regras estabelecidas pelo site, podendo ter sua <br>conta excluída sem aviso prévio.</p>
+            <button class="botao" type="submit" onclick="enableAndSubmitForm()">CADASTRAR</button>
+        </form>
+    </div>
+</body>
+</html>

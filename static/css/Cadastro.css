@@ -1,0 +1,56 @@
+
+.bloco{
+    font-size: 0.8vw;
+    font-family: calibri;
+    color: white;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    background-color: #23606E;
+    width: 600px;
+    border-radius: 50px;
+    align-content: center;
+    text-align: center;
+    font-size: 15px;
+}
+
+.campobig{
+    border: 0;
+    text-indent: 10px;
+    background-color: white;
+    border-radius: 50px;
+    height: 40px;
+    width: 500px;
+    margin-top: 3%;
+    font-family: calibri;
+    font-size: 18px;
+}
+
+.campo{
+    border: 0;
+    text-indent: 10px;
+    background-color: white;
+    border-radius: 50px;
+    height: 40px;
+    margin-top: 3%;
+    font-family: calibri;
+    font-size: 18px;
+}
+
+.botao{
+    background-color: #FFF0F0;
+    border: 0;
+    border-radius: 50px;
+    color: rgb(0, 0, 0);
+    width: 100px;
+    height: 40px;
+    margin: 30px;
+    font-family: calibri;
+    font-size: 15px;
+}
+
+.botao:hover{
+    background-color: #FACFCE;
+    cursor: pointer;
+}

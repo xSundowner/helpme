@@ -1,0 +1,104 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Anúncio</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/Anuncio.css') }}">
+    <script src="{{ url_for('static', filename='Anuncio.js') }}"></script>
+</head>
+<body>
+    <div class="corpo">
+        <div style="color: rgb(129, 129, 129);">
+            <p>{{ anuncio.codigo }} / POSTADO EM {{ anuncio.data_criacao }}</p>
+        </div>
+        <div class="bloconome">
+            <p>ANUNCIADO POR: {{ anuncio.nome_usuario }}</p>
+            {% if is_owner %}
+            <button class="denun" onclick="excluirAnuncio('{{ anuncio._id }}')">EXCLUIR</button>
+            {% else %}
+            <button class="denun" onclick="denunciar()">DENUNCIAR</button>
+            {% endif %}
+        </div>
+        <div class="blocodesc">
+            <p style="margin: 20px;">{{ anuncio.titulo }}</p>
+            
+            {% if anuncio.imagem1 %}
+            <div class="imagemone" style="background-image: url('data:image/jpeg;base64,{{ anuncio.imagem1 }}');">
+            </div>
+            {% endif %}
+            
+            {% if anuncio.imagem2 %}
+            <div class="imagemtwo" style="background-image: url('data:image/jpeg;base64,{{ anuncio.imagem2 }}');">
+            </div>
+            {% endif %}
+        </div>
+
+        <p class="titulo">INFORMAÇÕES</p>
+        <div class="line"></div>
+
+        <div class="blocoinfo">
+            <div class="endereco">
+                <p class="name">BAIRRO: {{ anuncio.bairro }}</p>
+                <p class="name">CIDADE: {{ anuncio.cidade }}</p>
+                <p class="name">UF: {{ anuncio.uf }}</p>
+            </div>
+            <div class="extradesc">
+                {{ anuncio.descricao }}
+            </div>
+        </div>
+        <div style="margin-left: 200px">
+            <button class="enviar">ENVIAR MENSAGEM PARA ANUNCIANTE</button>
+        </div>
+        <div style="text-align: center;margin-top: 150px;margin-bottom: 50px;">
+            SITE CRIADO POR GUSTAVO OLIVEIRA - 2024
+        </div>
+    </div>
+    <div class="header">
+        <div class="caixamenu">
+            <a href="{{ url_for('inicio') }}" class="menu">INÍCIO</a>
+            <a href="{{ url_for('perfil') }}" class="menu">PERFIL</a>
+            <a href="{{ url_for('criar') }}" class="menu">CRIAR ANÚNCIO</a>
+            <a href="{{ url_for('logout') }}"><button class="loginbutton">LOGOUT</button></a>
+        </div>
+    </div>
+    <div class="black" id="banana">
+    </div>
+    <div class="popupdenuncia" id="abobora">
+        <button class="close" onclick="fechar()">X</button>
+        <p class="titledenuncia">DENUNCIAR ANÚNCIO</p>
+        <form onsubmit="enviardenuncia()">
+            <label>
+                <input type="checkbox"> IMAGEM IMPRÓPRIA
+            </label>
+            <label>
+                <input type="checkbox"> DESCRIÇÃO IMPRÓPRIA
+            </label>
+            <label>
+                <input type="checkbox"> ANÚNCIO FALSO
+            </label>
+            <br/>
+            <textarea class="caixatexto" id="caixadetexto" required placeholder="Decreva sua denúncia" minlength="10" maxlength="300"></textarea>
+            <br/>
+            <button type="submit" class="denunconfirm">DENUNCIAR</button>
+        </form>
+    </div>
+    <script>
+        function excluirAnuncio(anuncioId) {
+            if (confirm('Você tem certeza que deseja excluir este anúncio?')) {
+                fetch(`/excluir_anuncio/${anuncioId}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }).then(response => {
+                    if (response.ok) {
+                        window.location.href = "{{ url_for('inicio') }}";
+                    } else {
+                        alert('Erro ao excluir o anúncio');
+                    }
+                });
+            }
+        }
+    </script>
+</body>
+</html>
+

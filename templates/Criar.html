@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Criar anúncio</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/Criar.css') }}">
+</head>
+<body>
+    <div class="corpo">
+        <div>
+            <p class="titulo">CRIAR ANÚNCIO</p>
+            <div class="line"></div>
+        </div>
+
+        <form method="post" action="{{ url_for('processar_anuncio') }}" enctype="multipart/form-data">
+            <input class="descricaoprincipal" type="text" name="titulo" placeholder="Adicione um título ao anúncio" maxlength="50" minlength="10" required></input>
+            <textarea class="descricaoextra" name="descricao" placeholder="Adicione uma descrição" maxlength="900" minlength="50" required></textarea>
+
+            <p style="font-size: 18px;text-align: justify;margin-top: 5%;">Adicione 2 imagens ao seu anúncio. Use imagens claras e nítidas que mostrem o que deseja doar:</p>
+
+            <img class="imagemone" onclick="imageonepopup()" id="blah"/>
+            <img class="imagemtwo" onclick="imagetwopopup()" id="blah2"/>
+
+            <label class="upload">
+                <input type="file" name="imagem1" accept="image/png, image/jpeg" onchange="document.getElementById('blah').src = window.URL.createObjectURL(this.files[0]);"/>
+                Upload de imagem
+            </label>
+
+            <label class="upload2">
+                <input type="file" name="imagem2" accept="image/png, image/jpeg" onchange="document.getElementById('blah2').src = window.URL.createObjectURL(this.files[0]);"/>
+                Upload de imagem
+            </label>
+
+            <p style="font-size: 18px;text-align: justify;margin-top: 52%;">Agora você irá categorizar o seu anúncio abaixo, escolha as opções que mais se adequam ao que você está propondo:</p>
+
+            <select class="select" name="categoria">
+                <option disabled selected>O QUE VOCÊ ESTÁ DOANDO ?</option>
+                <option value="ALIMENTOS">ALIMENTOS</option>
+                <option value="ANIMAIS">ANIMAIS</option>
+                <option value="ELETRÔNICOS">ELETRÔNICOS</option>
+                <option value="MÓVEIS">MÓVEIS</option>
+                <option value="ROUPAS">ROUPAS</option>
+                <option value="UTENSÍLIOS">UTENSÍLIOS</option>
+                <option value="OUTROS">OUTROS</option>
+            </select>
+
+            <select class="select" name="quantidade">
+                <option disabled selected>QUANTAS COISAS VOCÊ ESTÁ DOANDO ?</option>
+                <option value="APENAS UMA">APENAS UMA</option>
+                <option value="VÁRIAS">VÁRIAS</option>
+            </select>
+
+            <select class="select" name="entrega">
+                <option disabled selected>COMO SERÁ A ENTREGA ?</option>
+                <option value="EU IREI ATÉ O RECEBEDOR">EU IREI ATÉ O RECEBEDOR</option>
+                <option value="O RECEBEDOR VEM ATÉ MIM">O RECEBEDOR VEM ATÉ MIM</option>
+            </select>
+
+            <div style="text-align: center;">
+                <button type="submit" class="enviar">ANÚNCIAR</button>
+            </div>
+
+        </form>
+
+        <div style="text-align: center;margin-top: 100px;margin-bottom: 50px;">
+            SITE CRIADO POR GUSTAVO OLIVEIRA - 2024
+        </div>
+    </div>
+
+    <div class="header">
+        <div class="caixamenu">
+            <a href="{{ url_for('inicio') }}" class="menu">INÍCIO</a>
+            <a href="{{ url_for('perfil') }}" class="menu">PERFIL</a>
+            <a href="{{ url_for('criar') }}" class="menu">CRIAR ANÚNCIO</a>
+            <a href="{{ url_for('logout') }}"><button class="loginbutton">LOGOUT</button></a>
+        </div>
+    </div>
+
+    <div style="height: 100%;width: 100%;background-color: black;position: fixed;opacity: 0.6;cursor: pointer;display: none;" onclick="remove()" id="fundopreto"></div>
+    <div class="imageonepopup" id="popup" onclick="remove()">
+        <img style="width: fit-content;height: fit-content;min-height: 80%;max-width: 100%" id="blahpop"/>
+    </div>
+    <div class="imageonepopup" id="popuptwo" onclick="remove()">
+        <img style="width: fit-content;height: fit-content;min-height: 80%;max-width: 100%" id="blahpop2"/>
+    </div>
+
+    <script>
+    function imageonepopup() {
+        document.getElementById('fundopreto').style.display = 'block';
+        document.getElementById('popup').style.display = 'block';
+        var src = document.getElementById('blah').src;
+        document.getElementById('blahpop').src = src;
+    }
+
+    function imagetwopopup() {
+        document.getElementById('fundopreto').style.display = 'block';
+        document.getElementById('popuptwo').style.display = 'block';
+        var src = document.getElementById('blah2').src;
+        document.getElementById('blahpop2').src = src;
+    }
+
+    function remove() {
+        document.getElementById('fundopreto').style.display = 'none';
+        document.getElementById('popup').style.display = 'none';
+        document.getElementById('popuptwo').style.display = 'none';
+    }
+    </script>
+
+</body>
+</html>

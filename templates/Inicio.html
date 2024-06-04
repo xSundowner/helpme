@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Página inicial</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/Inicio.css') }}">
+</head>
+<body>
+
+<div class="corpo">
+    <form id="searchForm">
+        <input class="pesquisa" id="searchInput" name="search" placeholder="Pesquisar por título do anúncio"/>
+        <button type="submit" class="buttonsearch">PESQUISAR</button>
+    </form>
+
+    {% for anuncio in anuncios %}
+    <div class="bloco">
+        <div class="profpic" style="background-image: url('data:image/jpeg;base64,{{ anuncio.fotousuario }}');"></div>
+        <div class="username">{{ anuncio.nome_usuario }}</div>
+        <div class="data">Postado em: {{ anuncio.data_criacao }}</div>
+        <a href="{{ url_for('visualizar_anuncio', anuncio_id=anuncio._id) }}">
+            <button class="goto">VISUALIZAR ANÚNCIO</button>
+        </a>
+        <textarea class="desc" maxlength="100" disabled>{{ anuncio.titulo }}</textarea>
+        <div class="imagemone" style="background-image: url('data:image/jpeg;base64,{{ anuncio.imagem1 }}');"></div>
+        <div class="imagemtwo" style="background-image: url('data:image/jpeg;base64,{{ anuncio.imagem2 }}');"></div>
+    </div>
+    {% endfor %}
+
+    <div style="text-align: center; margin-top: 100px; margin-bottom: 50px;">
+        SITE CRIADO POR GUSTAVO OLIVEIRA - 2024
+    </div>
+</div>
+
+<div class="header">
+    <div class="caixamenu">
+        <a href="{{ url_for('inicio') }}" class="menu">INÍCIO</a>
+        <a href="{{ url_for('perfil') }}" class="menu">PERFIL</a>
+        <a href="{{ url_for('criar') }}" class="menu">CRIAR ANÚNCIO</a>
+        <a href="{{ url_for('logout') }}"><button class="loginbutton">LOGOUT</button></a>
+    </div>
+</div>
+
+<script>
+document.getElementById('searchForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    let searchTerm = document.getElementById('searchInput').value;
+    window.location.href = '/search?title=' + encodeURIComponent(searchTerm);
+});
+</script>
+
+</body>
+</html>

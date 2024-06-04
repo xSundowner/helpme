@@ -1,0 +1,58 @@
+<html>
+<head>
+    <title>Perfil</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/Usuario.css') }}">
+    <script src="Usuario/Script.js"></script>
+</head>
+
+<body>
+
+
+    <div class="secheader">
+        <form id="uploadForm" action="{{ url_for('upload_fotousuario') }}" method="post" enctype="multipart/form-data">
+            <input type="file" id="fileInput" name="file" style="background-image: url('data:image/jpeg;base64,{{ fotousuario }}');"; class="avatar"">
+        </form>
+        <p class="username">{{ nome_usuario }} {{ sobrenome_usuario }}</p>
+        <a href="" class="editar">EDITAR PERFIL</a>
+        <p class="dataconta">Membro desde: {{ ano_criacao }}</p>
+        <p class="id">{{ id_usuario }}</p>
+    </div>
+
+    <div>
+        <p class="titulo">ANÚNCIOS ATIVOS</p>
+        <div class="line"></div>
+    </div>
+
+    <div class="conteudo">
+        {% for anuncio in anuncios %}
+        <div class="bloco" style="background-image: url('data:image/jpeg;base64,{{ anuncio.imagem1 }}');">
+            <div class="box">
+                <a style="text-decoration: none;" href="{{ url_for('visualizar_anuncio', anuncio_id=anuncio._id) }}">
+                <p class="desc">{{ anuncio.titulo[:25] }}{% if anuncio.titulo|length > 25 %}....{% endif %}</p>
+                </a>
+                <p class="data">Publicado em {{ anuncio.data_criacao }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="header">
+        <div class="caixamenu">
+            <a href="{{ url_for('inicio') }}" class="menu">INÍCIO</a>
+            <a href="{{ url_for('perfil') }}" class="menu">PERFIL</a>
+            <a href="{{ url_for('criar') }}" class="menu">CRIAR ANÚNCIO</a>
+
+            <a href="{{ url_for('logout') }}"><button class="loginbutton">LOGOUT</button></a>  
+        </div>
+    </div>
+
+    
+    <script>
+        document.getElementById('fileInput').addEventListener('change', function() {
+            document.getElementById('uploadForm').submit();
+        });
+    </script>
+
+</body>
+</html>
